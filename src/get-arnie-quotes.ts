@@ -15,6 +15,10 @@ type TResponse = {
   body: string;
 }
 
+type TResponseBody = {
+  message: string;
+}
+
 const RES_CODE_KEY_MAPPING: { [key: string]: string} = {
   '200': 'Arnie Quote',
   default: 'FAILURE'
@@ -22,9 +26,9 @@ const RES_CODE_KEY_MAPPING: { [key: string]: string} = {
 
 function serialiseResponse(response: TResponse): TResult {
   const { status, body } = response;
-  const statusCodeInString = status === 200 ? String(status) : 'default';
+  const statusCodeInString: string = status === 200 ? String(status) : 'default';
   const resultKey: string = RES_CODE_KEY_MAPPING[statusCodeInString];
-  const bodyInJson = JSON.parse(body);
+  const bodyInJson: TResponseBody = JSON.parse(body);
   return { [resultKey]: bodyInJson.message};
 }
 
